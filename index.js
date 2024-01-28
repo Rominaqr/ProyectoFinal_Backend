@@ -1,6 +1,7 @@
 import express, { json } from 'express';
 import publicacionesRoutes from './routes/publicaciones.js';
-import comentariosRoutes from './routes/comentarios.js'
+import comentariosRoutes from './routes/comentarios.js';
+import usuariosRoutes from './routes/usuarios.js';
 import swaggerUI from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
 import { fileURLToPath } from "url";
@@ -42,6 +43,7 @@ const corsOptions ={
 app.use(cors(corsOptions));
 app.use('/publicaciones', publicacionesRoutes);
 app.use('/comentarios', comentariosRoutes);
+app.use('/usuarios', usuariosRoutes);
 app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
 
 

@@ -1,6 +1,7 @@
 import express from 'express';
 const router = express.Router();
-import {agregarComentario} from '../controllers/comentarios_controller.js';
+import {agregarComentario, eliminarComentario} from '../controllers/comentarios_controller.js';
+import TokenMiddleware from '../middleware/tokenmiddleware.js';
 
 /**
  * @swagger
@@ -47,6 +48,10 @@ import {agregarComentario} from '../controllers/comentarios_controller.js';
 *       description: Error al intentar insertar comentario a una publicación.
 */
 
-router.post('/', agregarComentario);
+router.post('/', TokenMiddleware, agregarComentario);
+
+router.delete('/:idPublicacion/:idComentario', TokenMiddleware, eliminarComentario);
+
+/*router.put('/', TokenMiddleware, modificarComentario);*/
 
 export default router;

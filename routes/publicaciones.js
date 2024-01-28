@@ -1,6 +1,7 @@
 import express from 'express';
 const router = express.Router();
-import { createPublicacion, getAllPublicaciones, deletePublicacionById, updatePublicacionById, getPublicacionById } from '../controllers/publicaciones_controller.js';
+import TokenMiddleware from '../middleware/tokenmiddleware.js';
+import { createPublicacion, getAllPublicaciones, deletePublicacionById, updatePublicacionById, getPublicacionById, getByDescripcion } from '../controllers/publicaciones_controller.js';
 
 /**
  * @swagger
@@ -47,7 +48,7 @@ import { createPublicacion, getAllPublicaciones, deletePublicacionById, updatePu
 *       description: Error al intentar crear una nueva publicación.
 */
 
-router.post('/', createPublicacion);
+router.post('/', TokenMiddleware, createPublicacion);
 
 /**
  * @swagger
@@ -215,7 +216,7 @@ router.get('/:id', getPublicacionById );
 *     500:
 *       description: Error al intentar eliminar un registro de la tabla de publicaciones.
 */
-router.delete('/:id', deletePublicacionById );
+router.delete('/:id', TokenMiddleware, deletePublicacionById );
 
 /**
 * @swagger
@@ -244,6 +245,10 @@ router.delete('/:id', deletePublicacionById );
 *       description: Error al intentar eliminar un registro de la tabla de publicaciones.
 */
 
-router.put('/:id', updatePublicacionById );
+router.put('/:id',TokenMiddleware, updatePublicacionById );
+
+
+router.get('/descripcion/:descripcion', getByDescripcion );
+
 
 export default router;

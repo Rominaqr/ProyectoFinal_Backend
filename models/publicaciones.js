@@ -6,6 +6,7 @@ const publicacionesSchema = new mongoose.Schema({
     titulo: { type: String, required: true },
     descripcion: { type: String, required: true },
     imagen: String,
+    usuario: { type: String},
     comentarios: [comentariosSchema]
 });
 

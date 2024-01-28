@@ -3,7 +3,12 @@ import comentariosModel from '../models/comentarios.js';
 
 const agregarComentario = async (req, res) => {
     try {
-        const { publicacionId, usuario, contenido } = req.body;
+        const usuario = req.user.usuario; /*se obtiene del Midddleware del token*/
+        const publicacionId = req.body.publicacionId;
+        const contenido = req.body.contenido;
+
+        /*const { publicacionId, usuario, contenido } = req.body;*/
+
 
         const publicacion = await publicacionesModel.findById(publicacionId);
 
@@ -28,4 +33,29 @@ const agregarComentario = async (req, res) => {
     }
 };
 
-export {agregarComentario}
+
+
+const eliminarComentario = async (req, res) => {
+
+    const idComentario = req.params.idComentario;
+    const idPublicacion = req.params.idPublicacion;
+    try {
+        const publicacion = await publicacionesModel.updateOne(
+            { _id: idPublicacion },
+            { $pull: { comentarios: { _id: idComentario } } });
+
+        if (publicacion.modifiedCount === 1) {
+            const comentario = await comentariosModel.deleteOne({ _id: idComentario });
+            res.status(200).json(publicacion);
+
+        } else {
+            res.status(400).json({ error: 'No se encontró la publicación o comentario.' });
+        }
+
+    } catch (err) {
+
+        res.status(500).json({ error: 'Error deleting Comentario' });
+    }
+};
+
+export { agregarComentario, eliminarComentario }
