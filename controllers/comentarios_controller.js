@@ -29,7 +29,11 @@ const agregarComentario = async (req, res) => {
         res.status(201).json({ mensaje: 'Comentario agregado' });
     } catch (error) {
         console.error(error);
+<<<<<<< HEAD
+        res.status(500).send({ error: 'Error al agregar el comentario' });
+=======
         res.status(500).json({ error: 'Error al agregar el comentario' });
+>>>>>>> baccb44e012675c1a5c8bda405ebb63a5291b761
     }
 };
 
