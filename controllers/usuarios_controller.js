@@ -20,21 +20,12 @@ const createUsuarios = async (req, res) => {
 
     } catch (err) {
         if (err.code === 11000 && err.keyPattern && err.keyPattern.email) {
-<<<<<<< HEAD
-            res.status(400).send({ message: "El email ya está registrado."})
+            res.status(400).send({ message: "El email ya está registrado." })
         } else {
             if (err.code === 11000 && err.keyPattern && err.keyPattern.usuario) {
                 res.status(400).send({ message: "El usuario ya está registrado." });
             } else {
-                res.status(500).send({ message: "Error creando usuario."});
-=======
-            res.status(400).send({ message: "El email ya está registrado.'", stack: err.stack })
-        } else {
-            if (err.code === 11000 && err.keyPattern && err.keyPattern.usuario) {
-                res.status(400).send({ message: "El usuario ya está registrado.", stack: err.stack });
-            } else {
-                res.status(500).send({ message: "Error creando usuario.", stack: err.stack });
->>>>>>> baccb44e012675c1a5c8bda405ebb63a5291b761
+                res.status(500).send({ message: "Error creando usuario." });
             }
         }
     }
